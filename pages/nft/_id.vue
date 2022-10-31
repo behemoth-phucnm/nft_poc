@@ -17,7 +17,12 @@
               Seller: <span class="">{{ data.seller }}</span>
             </div>
             <div>
-              <b-button v-if="!isOwner" variant="primary" class="" @click="buyNFT(data.tokenId)">
+              <b-button
+                v-if="!isOwner"
+                variant="primary"
+                class=""
+                @click="buyNFT(data.tokenId)"
+              >
                 Buy this NFT
               </b-button>
               <div v-else class="">You are the owner of this NFT</div>
@@ -128,9 +133,10 @@ export default {
         await transaction.wait()
 
         alert('You successfully bought the NFT!')
-        this.updateMessage('')
       } catch (e) {
         alert('Upload Error' + e)
+      } finally {
+        this.updateMessage('')
       }
     },
   },

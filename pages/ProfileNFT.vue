@@ -21,21 +21,24 @@
         </div>
         <div class="">
           <h2 class="">Your NFTs</h2>
-          <div v-if="data.length" class="">
-            <div v-for="(item, index) in data" :key="index">
-              <b-card
-                :title="item.name"
-                :img-src="item.image"
-                img-alt="Image"
-                img-top
-                tag="article"
-                style="max-width: 20rem"
-                class=""
-              >
-                <b-card-text>{{ item.description }}</b-card-text>
-              </b-card>
-            </div>
-          </div>
+          <b-card-group v-if="data.length" deck>
+            <b-card
+              v-for="(item, index) in data"
+              :key="index"
+              :title="item.name"
+              :img-src="item.image"
+              img-alt="Image"
+              img-top
+              tag="article"
+              style="max-width: 20rem"
+              class=""
+            >
+              <b-card-text>{{ item.description }}</b-card-text>
+              <b-link :href="`/nft/${item.tokenId}`" class="card-link">
+                Detail
+              </b-link>
+            </b-card>
+          </b-card-group>
           <div v-else class="">No NFT data to display</div>
         </div>
       </div>
