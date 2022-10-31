@@ -40,10 +40,10 @@ export default {
       state.dataFetched = payload
     },
     UPDATE_MESSAGE(state, payload) {
-      state.address = payload
+      state.message = payload
     },
     UPDATE_CURR_ADDRESS(state, payload) {
-      state.totalPrice = payload
+      state.currAddress = payload
     },
   },
 }

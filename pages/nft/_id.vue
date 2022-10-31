@@ -1,28 +1,31 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <div class="container">
-      <img :src="data.image" alt="" class="" />
-      <div class="">
-        <div>Name: {{ data.name }}</div>
-        <div>Description: {{ data.description }}</div>
-        <div>
-          Price: <span class="">{{ data.price }} ETH</span>
-        </div>
-        <div>
-          Owner: <span class="text-sm">{{ data.owner }}</span>
-        </div>
-        <div>
-          Seller: <span class="text-sm">{{ data.seller }}</span>
-        </div>
-        <div>
-          <button v-if="isOwner" class="" @click="buyNFT(tokenId)">
-            Buy this NFT
-          </button>
-          <div v-else class="">You are the owner of this NFT</div>
-          <div class="">{{ message }}</div>
-        </div>
-      </div>
+    <div v-if="data" class="container">
+      <b-card-group deck>
+        <b-card :img-src="data.image" img-alt="Card image" img-top>
+          <b-card-text>
+            <div>Name: {{ data.name }}</div>
+            <div>Description: {{ data.description }}</div>
+            <div>
+              Price: <span class="">{{ data.price }} ETH</span>
+            </div>
+            <div>
+              Owner: <span class="">{{ data.owner }}</span>
+            </div>
+            <div>
+              Seller: <span class="">{{ data.seller }}</span>
+            </div>
+            <div>
+              <b-button v-if="!isOwner" variant="primary" class="" @click="buyNFT(data.tokenId)">
+                Buy this NFT
+              </b-button>
+              <div v-else class="">You are the owner of this NFT</div>
+              <div class="">{{ message }}</div>
+            </div>
+          </b-card-text>
+        </b-card>
+      </b-card-group>
     </div>
   </div>
 </template>
@@ -30,22 +33,23 @@
 <script>
 import { createNamespacedHelpers } from 'vuex'
 import { mapFields } from 'vuex-map-fields'
-import BehemothNFT from '../abi/BehemothNFT.json'
+import BehemothNFT from '@/abi/BehemothNFT.json'
 const ethers = require('ethers')
-const profileMapper = createNamespacedHelpers('profile')
-const tokenId = 'BENFT'
+const detailMapper = createNamespacedHelpers('detail')
 
 export default {
-  name: 'ProfileNFT',
+  name: 'DetailNFT',
   data() {
-    return {}
+    return {
+      tokenId: Number(this.$route.params.id),
+    }
   },
   head() {
     // Set Meta Tags for this Page
   },
   // ...
   computed: {
-    ...mapFields('profile', {
+    ...mapFields('detail', {
       data: 'data',
       dataFetched: 'dataFetched',
       message: 'message',
@@ -60,10 +64,10 @@ export default {
     },
   },
   mounted() {
-    this.getNFTData(tokenId)
+    this.getNFTData(this.tokenId)
   },
   methods: {
-    ...profileMapper.mapActions([
+    ...detailMapper.mapActions([
       'updateData',
       'updateDataFetched',
       'updateMessage',
@@ -83,7 +87,7 @@ export default {
       )
       // create an NFT Token
       const tokenURI = await contract.tokenURI(tokenId)
-      const listedToken = await contract.getListedTokenForId(tokenId)
+      const listedToken = await contract.getListedForTokenId(tokenId)
       let meta = await this.$axios.get(tokenURI)
       meta = meta.data
 
@@ -96,6 +100,7 @@ export default {
         name: meta.name,
         description: meta.description,
       }
+
       this.updateData(item)
       this.updateDataFetched(true)
       this.updateCurrAddress(addr)

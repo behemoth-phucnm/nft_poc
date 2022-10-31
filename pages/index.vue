@@ -3,21 +3,24 @@
     <NavBar />
     <div class="container">
       <div class="">Top NFTs</div>
-      <div class="">
-        <div v-for="(item, index) in items" :key="index">
-          <b-card
-            :title="item.name"
-            :img-src="item.image"
-            img-alt="Image"
-            img-top
-            tag="article"
-            style="max-width: 20rem"
-            class="mb-2"
-          >
-            <b-card-text>{{ item.description }}</b-card-text>
-          </b-card>
-        </div>
-      </div>
+      <b-card-group deck>
+        <b-card
+          v-for="(item, index) in items"
+          :key="index"
+          :title="item.name"
+          :img-src="item.image"
+          img-alt="Image"
+          img-top
+          tag="article"
+          style="max-width: 20rem"
+          class="mb-2"
+        >
+          <b-card-text>{{ item.description }}</b-card-text>
+          <b-link :href="`/nft/${item.tokenId}`" class="card-link">
+            Detail
+          </b-link>
+        </b-card>
+      </b-card-group>
     </div>
   </div>
 </template>
@@ -37,6 +40,7 @@ export default {
     // Set Meta Tags for this Page
   },
   // ...
+  computed: {},
   mounted() {
     this.getAllNFTs()
   },

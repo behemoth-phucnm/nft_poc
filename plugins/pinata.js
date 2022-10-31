@@ -1,5 +1,5 @@
 export default function (
-  { $axios, store, redirect, app, $config: { pinataAPIKey, pinataSecretAPIKey } },
+  { $axios, $config: { pinataAPIKey, pinataSecretAPIKey } },
   inject
 ) {
   inject('pinata', {
