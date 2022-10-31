@@ -1,11 +1,15 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="#">Marketplace</b-navbar-brand>
+      <b-navbar-brand @click="routerPush('/')">Marketplace</b-navbar-brand>
       <b-navbar-brand @click="routerPush('/sellnft')">Sell NFT</b-navbar-brand>
       <b-navbar-brand href="#">Profile</b-navbar-brand>
-      <b-navbar-brand @click="connectWebsite">{{ buttonText }}</b-navbar-brand>
-      <span v-if="connected">{{ currAddress }}</span>
+      <b-navbar-nav class="ml-auto">
+        <b-navbar-brand @click="connectWebsite">{{
+          buttonText
+        }}</b-navbar-brand>
+        <span v-if="connected">{{ currAddress }}</span>
+      </b-navbar-nav>
     </b-navbar>
   </div>
 </template>
@@ -20,7 +24,7 @@ export default {
   // ...
   data() {
     return {
-      connected: false,
+      // connected: false,
     }
   },
   head() {
@@ -28,7 +32,7 @@ export default {
   },
   computed: {
     ...mapFields('wallet', {
-      // connected: 'connected',
+      connected: 'connected',
       currAddress: 'currAddress',
     }),
 
@@ -37,7 +41,7 @@ export default {
     },
   },
   mounted() {
-    this.connected = window.ethereum.isConnected()
+    this.toggleConnect(window.ethereum.isConnected())
   },
   methods: {
     ...walletMapper.mapActions(['toggleConnect', 'updateAddress']),
@@ -73,7 +77,7 @@ export default {
         .then(() => {
           this.updateButton()
           this.getAddress()
-          // window.location.replace(location.pathname)
+          this.toggleConnect(window.ethereum.isConnected())
         })
     },
 
