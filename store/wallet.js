@@ -5,8 +5,8 @@ const SET_STATUS = 'SET_STATUS'
 
 export default {
   state: () => ({
-    connected: false,
-    currAddress: '',
+    connected: null,
+    currAddress: null,
   }),
 
   getters: {

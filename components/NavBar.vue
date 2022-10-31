@@ -3,13 +3,13 @@
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand @click="routerPush('/')">Marketplace</b-navbar-brand>
       <b-navbar-brand @click="routerPush('/sellnft')">Sell NFT</b-navbar-brand>
-      <b-navbar-brand @click="routerPush('/profilenft')"
-        >Profile</b-navbar-brand
-      >
+      <b-navbar-brand @click="routerPush('/profilenft')">
+        Profile
+      </b-navbar-brand>
       <b-navbar-nav class="ml-auto">
-        <b-navbar-brand @click="connectWebsite">{{
-          buttonText
-        }}</b-navbar-brand>
+        <b-navbar-brand @click="connectWebsite">
+          {{ buttonText }}
+        </b-navbar-brand>
         <span v-if="connected">{{ currAddress }}</span>
       </b-navbar-nav>
     </b-navbar>
@@ -25,9 +25,7 @@ export default {
   name: 'NavBar',
   // ...
   data() {
-    return {
-      // connected: false,
-    }
+    return {}
   },
   head() {
     // Set Meta Tags for this Page
@@ -43,19 +41,13 @@ export default {
     },
   },
   mounted() {
-    this.toggleConnect(window.ethereum.isConnected())
+    if (this.connected === null)
+      this.toggleConnect(window.ethereum.isConnected())
   },
   methods: {
     ...walletMapper.mapActions(['toggleConnect', 'updateAddress']),
 
-    updateButton() {
-      // const ethereumButton = document.querySelector('.enableEthereumButton')
-      // ethereumButton.textContent = 'Connected'
-      // ethereumButton.classList.remove('hover:bg-blue-70')
-      // ethereumButton.classList.remove('bg-blue-500')
-      // ethereumButton.classList.add('hover:bg-green-70')
-      // ethereumButton.classList.add('bg-green-500')
-    },
+    updateButton() {},
 
     async getAddress() {
       const ethers = require('ethers')

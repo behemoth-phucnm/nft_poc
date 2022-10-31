@@ -110,8 +110,7 @@ export default {
       // const { name, description, price } = formParams
       const fileURL = await this.uploadFileToIPFS()
       // Make sure that none of the fields are empty
-      if (!this.name || !this.description || !this.price || !fileURL)
-        return
+      if (!this.name || !this.description || !this.price || !fileURL) return
       const nftJSON = {
         name: this.name,
         description: this.description,
@@ -121,7 +120,6 @@ export default {
       try {
         // upload the metadata JSON to IPFS
         const response = await this.$pinata.uploadJSONToIPFS(nftJSON)
-        console.log(response)
         if (response.success === true) {
           // eslint-disable-next-line no-console
           console.log('Uploaded JSON to Pinata: ', response)
