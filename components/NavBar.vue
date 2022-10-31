@@ -3,7 +3,9 @@
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand @click="routerPush('/')">Marketplace</b-navbar-brand>
       <b-navbar-brand @click="routerPush('/sellnft')">Sell NFT</b-navbar-brand>
-      <b-navbar-brand href="#">Profile</b-navbar-brand>
+      <b-navbar-brand @click="routerPush('/profilenft')"
+        >Profile</b-navbar-brand
+      >
       <b-navbar-nav class="ml-auto">
         <b-navbar-brand @click="connectWebsite">{{
           buttonText
