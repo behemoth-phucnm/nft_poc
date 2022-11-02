@@ -75,6 +75,7 @@ import BehemothNFT from '../abi/BehemothNFT.json'
 const ethers = require('ethers')
 
 export default {
+  name: 'SellNFT',
   data() {
     return {
       name: null,

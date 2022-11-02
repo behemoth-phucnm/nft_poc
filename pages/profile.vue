@@ -12,7 +12,7 @@
         <div class="">
           <div>
             <h2 class="">No. of NFTs</h2>
-            {{ data.length }}
+            <span v-if="data && data.length">{{ data.length }}</span>
           </div>
           <div class="ml-20">
             <h2 class="">Total Value</h2>
@@ -21,7 +21,7 @@
         </div>
         <div class="">
           <h2 class="">Your NFTs</h2>
-          <b-card-group v-if="data.length" deck>
+          <b-card-group v-if="data && data.length" deck>
             <b-card
               v-for="(item, index) in data"
               :key="index"
@@ -54,7 +54,7 @@ const ethers = require('ethers')
 const profileMapper = createNamespacedHelpers('profile')
 
 export default {
-  name: 'ProfileNFT',
+  name: 'MyPage',
   data() {
     return {}
   },
